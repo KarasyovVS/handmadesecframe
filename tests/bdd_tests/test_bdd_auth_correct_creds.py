@@ -4,7 +4,7 @@ from pytest_bdd import scenario, given, then
 
 from framework.browser.browser import Browser
 from framework.utils.logger import Logger
-from python_frame_repo.handmadesecframe.tests.config.urls import Urls
+from tests.config.urls import Urls
 from tests.config.paths import Paths
 from tests.pages.login_page import LoginPage
 from tests.pages.success_login_page import SuccessLoginPage

@@ -1,4 +1,4 @@
-from python_frame_repo.handmadesecframe.framework.browser.browser import Browser
+from framework.browser.browser import Browser
 from framework.utils.logger import Logger
 from tests.pages.login_page import LoginPage
 
