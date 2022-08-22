@@ -25,13 +25,13 @@ class LoginPage(BasePage):
     def fill_in_login(self, login):
         login_tb = TextBox(search_condition=self.SEARCH_CONDITION,
                            locator=self.LOGIN_TB_LOC, name="Login text box")
-        login_tb.send_keys_without_click(login)
+        login_tb.send_keys_without_click(login, hide_logs=True)
 
     def fill_in_password(self, password):
         password_tb = TextBox(search_condition=self.SEARCH_CONDITION,
                               locator=self.PASSW_TB_LOC,
                               name="Password text box")
-        password_tb.send_keys_without_click(password)
+        password_tb.send_keys_without_click(password, hide_logs=True)
 
     def authorizate(self, login, password):
         self.fill_in_login(login)

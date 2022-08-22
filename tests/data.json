@@ -1,8 +1,3 @@
 {
-    "default variant" : "0",
-    "variant" : "2",
-    "project" : "Nexage",
-    "random_str_len" : 10,
-    "logs_file_path" : "logs_file.log",
-    "screenshot_name" : "image.png"
+    "key" : "value"
 }

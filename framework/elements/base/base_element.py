@@ -123,10 +123,15 @@ class BaseElement(object):
         self.click()
         self.send_keys_without_click(key)
 
-    def send_keys_without_click(self, key):
-        Logger.info(
-            "send_keys: Changing text of element '" + self.get_name() +
-            " " + self.__class__.__name__ + "' to text => '" + key + "'")
+    def send_keys_without_click(self, key, hide_logs=False):
+        if hide_logs:
+            Logger.info(
+                "send_keys: Changing text of element '" + self.get_name() +
+                " " + self.__class__.__name__ + "' to text => 'Text is hidden'")
+        else:
+            Logger.info(
+                "send_keys: Changing text of element '" + self.get_name() +
+                " " + self.__class__.__name__ + "' to text => '" + key + "'")
         self.wait_for_is_visible()
         element = self.wait_for_clickable()
         element.send_keys(key)
@@ -203,9 +208,8 @@ class BaseElement(object):
 
     def get_text_content(self):
         self.wait_for_is_visible()
-        return Browser.get_browser().get_driver(). \
-            execute_script("return arguments[0].textContent;",
-                           self.find_element())
+        return Browser.get_browser().get_driver().execute_script(
+            "return arguments[0].textContent;", self.find_element())
 
     def get_attribute(self, attr):
         Logger.info(
@@ -368,13 +372,13 @@ class BaseElement(object):
     def get_location_horizontal(self):
         return self.find_element().location[BaseElement.coordinate_x]
 
-    @staticmethod
+    @ staticmethod
     def get_list_of_elements_vertical_locations(condition, locator):
         other_elements = BaseElement.get_displayed_elements(condition, locator)
         return [element.location[BaseElement.coordinate_y] for element in
                 other_elements]
 
-    @staticmethod
+    @ staticmethod
     def get_dict_of_elements_vertical_locations_and_text(condition, locator):
         events_time_elements = BaseElement.get_displayed_elements(condition,
                                                                   locator)
@@ -384,7 +388,7 @@ class BaseElement(object):
                 element.location[BaseElement.coordinate_y]] = element.text
         return events_info
 
-    @staticmethod
+    @ staticmethod
     def get_dict_of_elements_attribute_and_vertical_location(condition,
                                                              locator,
                                                              attribute_name):

@@ -3,24 +3,28 @@ import pytest
 from framework.browser.browser import Browser
 from framework.utils.logger import Logger
 from tests.config.browser import BrowserConfig
-from tests.config.browser import Grid
 
 
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store",
                      default=BrowserConfig.BROWSER,
                      help="Name of browser")
-    parser.addoption("--grid_port", action="store", default=Grid.GRID_PORT,
-                     help="Port of remote connection")
+    parser.addoption("--login", action="store",
+                     default="defaultLogin",
+                     help="Login for authentication")
+    parser.addoption("--password", action="store",
+                     default="defaultPassword",
+                     help="Password for authentication")
+    parser.addoption("--url", action="store",
+                     default="defaultUrl",
+                     help="Password for authentication")
 
 
 @pytest.fixture(scope="session")
 def create_browser(request):
 
     browser = request.config.getoption('--browser')
-    Browser.get_browser().set_up_driver(browser_key=browser,
-                                        grid_port=request.config.getoption(
-                                        '--grid_port'))
+    Browser.get_browser().set_up_driver(browser_key=browser)
     Browser.get_browser().maximize(browser_key=browser)
     Logger.info("==============MAIN TEST PART==============")
 

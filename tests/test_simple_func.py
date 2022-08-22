@@ -29,4 +29,4 @@ class TestSimpleFunc(object):
             assert login_page.check_login_failed(), "Login is successful"
             Logger.info("Login is not successful")
 
-        time.sleep(3)
+        # time.sleep(3)

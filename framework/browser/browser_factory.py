@@ -1,6 +1,7 @@
 # coding=utf-8
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
@@ -18,12 +19,20 @@ class BrowserFactory:
         if capabilities is None:
             capabilities = {}
         if BrowserConfig.BROWSER == browsers.BROWSER_CHROME:
+            
+            # return driver = webdriver.Chrome(ChromeDriverManager().install())
+
+            # chrome_options = Options()
+            # chrome_options.add_argument("--headless")
+            # # chrome_options.headless = True # also works
+            # return webdriver.Chrome(options=chrome_options)
+
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_experimental_option('w3c', True)
-            chrome_options.add_experimental_option('prefs',
-                {'intl.accept_languages': '{}'.
-                format(BrowserConfig.LOCALIZATION)})
-
+            # chrome_options.add_experimental_option('prefs',
+            #     {'intl.accept_languages': '{}'.
+            #     format(BrowserConfig.LOCALIZATION)})
+            chrome_options.add_argument("--headless")
             if is_incognito:
                 chrome_options.add_argument("--incognito")
             if enable_performance_logging:
@@ -38,6 +47,7 @@ class BrowserFactory:
                 return webdriver.Chrome(ChromeDriverManager().install(),
                                         options=chrome_options,
                                         desired_capabilities=capabilities)
+
 
         elif BrowserConfig.BROWSER == browsers.BROWSER_FIREFOX:
             firefox_profile = webdriver.FirefoxProfile()
