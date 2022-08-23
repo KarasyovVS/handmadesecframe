@@ -3,11 +3,11 @@ from selenium.common.exceptions import NoSuchWindowException, TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from framework.utils.basic_auth_url_generator import URLGenerator
 from tests.config.waits import Waits
 from tests.config.browser import BrowserConfig
 from framework.browser.browser_factory import BrowserFactory
 from framework.utils.logger import Logger
+from framework.utils.url_generator import URLGenerator
 from framework.waits.wait_for_custom_event import WaitForCustomEvent
 from framework.waits.wait_for_ready_state_complete import \
     WaitForReadyStateComplete

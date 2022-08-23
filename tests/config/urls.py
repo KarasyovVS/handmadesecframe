@@ -1,3 +1,3 @@
 class Urls(object):
     
-    TEST_STAND_URL = "http://testfire.net/"
+    TEST_STAND_URL = "http://testfire.net"

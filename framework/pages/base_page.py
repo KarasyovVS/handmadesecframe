@@ -20,6 +20,11 @@ class BasePage:
         return Browser.get_browser().is_wait_successful(
             Label(self.SEARCH_CONDITION, self.locator,
                   self.page_name).wait_for_is_visible)
+    
+    # def is_not_opened(self):
+    #     Logger.info("Проверяем, что страница '" + self.page_name + "'не открыта")
+    #     self.wait_page_to_load
+    #     return Browser.get_browser().
 
     def wait_for_page_closed(self):
         self.wait_page_to_load()
