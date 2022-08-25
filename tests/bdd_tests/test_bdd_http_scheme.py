@@ -1,5 +1,3 @@
-import time
-
 from pytest_bdd import scenario, given, then
 
 from framework.browser.browser import Browser
@@ -7,7 +5,6 @@ from framework.utils.logger import Logger
 from framework.utils.url_generator import URLGenerator
 from tests.config.urls import Urls
 from tests.pages.landing_page import LandingPage
-from tests.pages.success_login_page import SuccessLoginPage
 
 
 @scenario(scenario_name="Переход по URL ресурса с невалидной схемой",
@@ -28,6 +25,13 @@ def open_landing_page_with_http_scheme(create_browser):
 @then("Переход по URL со схемой http безрезультатен")
 def check_landing_page_is_not_opened():
     landing_page = LandingPage()
-    assert landing_page.wait_for_page_closed(), "Переход по URL со " \
-                                                "схемой http успешен"
-    Logger.info("Переход по URL со схемой http безрезультатен")
+    page_not_opened = landing_page.wait_for_page_closed()
+    url_contains_https = URLGenerator.url_contains_https(
+        Browser.get_browser().get_current_url())
+    assert page_not_opened or url_contains_https, "Переход по URL со " \
+                                                  "схемой http успешен"
+    if page_not_opened:
+        Logger.info("Переход по URL со схемой http безрезультатен")
+    else:
+        Logger.info("При переходе по URL со схемой http веб-ресурс"
+                    " осуществляет редирект на URL со схемой https")

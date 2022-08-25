@@ -1,7 +1,5 @@
-import time
 import os
 import pytest
-import subprocess
 
 from pytest_bdd import scenario, given, then
 
