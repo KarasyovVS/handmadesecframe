@@ -1,3 +1,4 @@
+import allure
 import time
 
 from pytest_bdd import scenario, given, then
@@ -11,6 +12,7 @@ from tests.pages.login_page import LoginPage
 from tests.pages.success_login_page import SuccessLoginPage
 
 
+@allure.story("Аутентификация в системе c некорректными УД")
 @scenario(scenario_name="Аутентификация в системе",
           feature_name="/home/developer1/handmadesecframe/tests"
           "/feature_files/auth_test_bdd_incorrect_creds.feature")
