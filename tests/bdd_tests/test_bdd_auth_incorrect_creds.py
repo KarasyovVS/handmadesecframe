@@ -12,9 +12,8 @@ from tests.pages.success_login_page import SuccessLoginPage
 
 
 @scenario(scenario_name="Аутентификация в системе",
-          feature_name="/home/ckecker/python_frame_repo/"
-          "handmadesecframe/tests/feature_files/"
-          "auth_test_bdd_incorrect_creds.feature")
+          feature_name="/home/developer1/handmadesecframe/tests"
+          "/feature_files/auth_test_bdd_incorrect_creds.feature")
 def test_login():
     pass
 

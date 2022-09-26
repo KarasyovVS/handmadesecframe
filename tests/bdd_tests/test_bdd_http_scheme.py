@@ -8,9 +8,8 @@ from tests.pages.landing_page import LandingPage
 
 
 @scenario(scenario_name="Переход по URL ресурса с невалидной схемой",
-          feature_name="/home/ckecker/python_frame_repo/"
-          "handmadesecframe/tests/feature_files/"
-          "http_test_bdd.feature")
+          feature_name="/home/developer1/handmadesecframe/tests/"
+          "feature_files/http_test_bdd.feature")
 def test_main_page_opened():
     pass
 

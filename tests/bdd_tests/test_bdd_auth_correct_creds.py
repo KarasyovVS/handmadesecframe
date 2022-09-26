@@ -11,8 +11,9 @@ from tests.pages.success_login_page import SuccessLoginPage
 from tests.scripts import ScriptsClass
 
 
-@scenario(scenario_name="Аутентификация в системе", feature_name="/home/ckecker/python_frame_repo/handmadesecframe/tests/feature_files/"
-          "auth_test_bdd.feature")
+@scenario(scenario_name="Аутентификация в системе", 
+          feature_name="/home/developer1/handmadesecframe/tests"
+          "/feature_files/auth_test_bdd.feature")
 def test_login():
     pass
 
