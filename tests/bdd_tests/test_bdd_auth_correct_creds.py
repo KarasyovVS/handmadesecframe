@@ -13,8 +13,7 @@ from tests.scripts import ScriptsClass
 
 @allure.story("Аутентификация в системе с корректными УД")
 @scenario(scenario_name="Аутентификация в системе", 
-          feature_name="/home/developer1/handmadesecframe/tests"
-          "/feature_files/auth_test_bdd.feature")
+          feature_name="feature_files/auth_test_bdd.feature")
 def test_login():
     pass
 

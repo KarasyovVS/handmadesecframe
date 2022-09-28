@@ -14,8 +14,7 @@ from tests.pages.success_login_page import SuccessLoginPage
 
 @allure.story("Аутентификация в системе c некорректными УД")
 @scenario(scenario_name="Аутентификация в системе",
-          feature_name="/home/developer1/handmadesecframe/tests"
-          "/feature_files/auth_test_bdd_incorrect_creds.feature")
+          feature_name="feature_files/auth_test_bdd_incorrect_creds.feature")
 def test_login():
     pass
 
