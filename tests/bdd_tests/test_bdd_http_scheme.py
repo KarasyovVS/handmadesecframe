@@ -9,7 +9,8 @@ from tests.config.urls import Urls
 from tests.pages.landing_page import LandingPage
 
 
-@allure.story("Переход по URL ресурса с невалидной схемой - http")
+@allure.feature("6 Безопасность транспорта")
+@allure.story("6-1 Переход по URL ресурса с невалидной схемой - http")
 @scenario(scenario_name="Переход по URL ресурса с невалидной схемой",
           feature_name="feature_files/http_test_bdd.feature")
 def test_main_page_opened():
@@ -23,7 +24,8 @@ def open_landing_page_with_http_scheme(create_browser):
     landing_page = LandingPage()
 
 
-@then("Переход по URL со схемой http безрезультатен")
+@then("Переход по URL со схемой http безрезультатен или завершается "
+      "использованием схемы https")
 def check_landing_page_is_not_opened():
     landing_page = LandingPage()
     page_not_opened = landing_page.wait_for_page_closed()
