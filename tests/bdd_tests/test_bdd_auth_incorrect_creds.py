@@ -1,4 +1,5 @@
 import allure
+import pytest
 import time
 
 from pytest_bdd import scenario, given, then
@@ -12,19 +13,32 @@ from tests.pages.login_page import LoginPage
 from tests.pages.success_login_page import SuccessLoginPage
 
 
-@allure.story("Аутентификация в системе c некорректными УД")
+@pytest.fixture(scope='function')
+def context():
+    return []
+
+
+@allure.feature("1 Идентификация и аутентификация")
+@allure.story("1-2 Аутентификация в системе c некорректными УД")
+@pytest.mark.parametrize("login,password", [("admin", "randomValue342"),
+                                            ("randomValue1", "admin"),
+                                            ("randomValue1", "randomValue1"),
+                                            ("admi", "admin"),
+                                            ("admin", "admi"),
+                                            ("admin", "notadmin")])
 @scenario(scenario_name="Аутентификация в системе",
           feature_name="feature_files/auth_test_bdd_incorrect_creds.feature")
-def test_login():
+def test_login(login, password):
     pass
 
 
 @given("Открыть страницу аутентификации, ввести логин, пароль и "
        "нажать на кнопку входа")
-def open_login_page(create_browser):
+def open_login_page(create_browser, login, password):
     Browser.get_browser().set_url(Urls.TEST_STAND_URL + Paths.AUTH_PATH)
-    ScriptsClass.login_script(login="randomValue194",
-                              password="randomValue342")
+    Logger.info(login + password)
+    ScriptsClass.login_script(login=login,
+                              password=password)
 
 
 @then("Должно появляться сообщение об ошибке")
