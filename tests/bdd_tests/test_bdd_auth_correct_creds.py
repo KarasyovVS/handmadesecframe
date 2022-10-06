@@ -6,8 +6,7 @@ from pytest_bdd import scenario, given, then
 from framework.browser.browser import Browser
 from framework.utils.logger import Logger
 from framework.utils.random_generator import RandomGenerator
-from tests.config.urls import Urls
-from tests.config.paths import Paths
+from tests.config.endpoints import Endpoints
 from tests.pages.login_page import LoginPage
 from tests.pages.second_factor_page import SecondFactorPage
 from tests.pages.success_login_page import SuccessLoginPage
@@ -24,15 +23,15 @@ def test_login():
 
 @given("Открыть страницу аутентификации, ввести логин, пароль и "
        "нажать на кнопку входа")
-def open_login_page(create_browser):
-    Browser.get_browser().set_url(Urls.TEST_STAND_URL + Paths.AUTH_PATH)
+def open_login_page(pre_conditions):
+    Browser.get_browser().set_url(pre_conditions["url"] + Endpoints.AUTH_PATH)
     ScriptsClass.login_script(login="admin", password="admin")
 
 
 @then("Должна открыться страница успешной аутентификации " 
       "или страница ввода второго фактора")
-def success_login_page_opened(create_browser):
-    if create_browser:
+def success_login_page_opened(pre_conditions):
+    if pre_conditions["2fa"]:
         second_factor_page = SecondFactorPage()
         assert second_factor_page.is_opened(), \
             "Страница ввода второго фактора не открыта"

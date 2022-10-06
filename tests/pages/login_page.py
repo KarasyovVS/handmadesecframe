@@ -16,6 +16,7 @@ class LoginPage(BasePage):
     LOGIN_BTN_LOC = "//input[contains(@type, 'ubmit') and contains(@value, " \
                     "'ogin')]"
     LOGIN_FAILED_TXT_LOC = "//span[contains(text(), 'was not found')]"
+    ACCOUNT_BLOCKED_TXT_LOC = "//div[contains(text(), 'account is blocked')]"
 
     def __init__(self):
         super().__init__(search_condition=self.SEARCH_CONDITION,
@@ -45,6 +46,15 @@ class LoginPage(BasePage):
                                   locator=self.LOGIN_FAILED_TXT_LOC,
                                   name="Login failed text")
         if login_failed_text.is_displayed():
+            return True
+        else:
+            return False
+    
+    def check_account_blocked_message(self):
+        account_blocked_text = Label(search_condition=self.SEARCH_CONDITION,
+                                     locator=self.ACCOUNT_BLOCKED_TXT_LOC,
+                                     name="Account blocked text")
+        if account_blocked_text.is_displayed():
             return True
         else:
             return False
