@@ -6,8 +6,8 @@ from pytest_bdd import scenario, given, then
 from framework.browser.browser import Browser
 from framework.utils.logger import Logger
 from framework.utils.random_generator import RandomGenerator
+from tests.config.creds_file import Creds
 from tests.config.endpoints import Endpoints
-from tests.pages.login_page import LoginPage
 from tests.pages.second_factor_page import SecondFactorPage
 from tests.pages.success_login_page import SuccessLoginPage
 from tests.scripts import ScriptsClass
@@ -25,7 +25,8 @@ def test_login():
        "нажать на кнопку входа")
 def open_login_page(pre_conditions):
     Browser.get_browser().set_url(pre_conditions["url"] + Endpoints.AUTH_PATH)
-    ScriptsClass.login_script(login="admin", password="admin")
+    ScriptsClass.login_script(login=Creds.CORRECT_CREDS[0]["login"], 
+                              password=Creds.CORRECT_CREDS[0]["password"])
 
 
 @then("Должна открыться страница успешной аутентификации " 

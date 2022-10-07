@@ -1,10 +1,10 @@
 import pytest
+import allure
 
 from pytest_bdd import scenario, given, then
 
 from framework.utils.logger import Logger
 from framework.utils.nuclei_funcs import NucleiFunctions
-from tests.config.nuclei_configs.fuzzing_templates import FuzzingTemplates
 
 
 @pytest.fixture(scope='function')
@@ -12,6 +12,8 @@ def context():
     return {}
 
 
+@allure.feature("4 Фаззинг")
+@allure.story("4-1 Фаззинг форм ввода")
 @scenario(scenario_name="Фаззинг веб-ресурса инструментом nuclei "\
                         "по встроенным темплейтам",
           feature_name="feature_files/fuzzing_nuclei.feature")
