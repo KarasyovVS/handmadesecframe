@@ -23,9 +23,7 @@ def test_no_vulnerables_found_by_nuclei_fuzzing():
 def get_results_from_nuclei_fuzzing(pre_conditions, context):
     url = pre_conditions["url"]
     Logger.info("Запуск nuclei по url: {}".format(url))
-    result = NucleiFunctions.nuclei_scanning_with_templates_list(url, 
-        FuzzingTemplates.TEMPLATES_LIST, NucleiFunctions.nuclei_fuzzing_scan)
-    context["partial_result"] = result
+    context["partial_result"] = NucleiFunctions.get_fuzzing_results(url)
 
 
 @then("Уязвимости инструментом nuclei не обнаружены")
