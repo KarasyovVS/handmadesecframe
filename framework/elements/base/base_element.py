@@ -1,4 +1,4 @@
-# coding=utf-8
+from abc import ABC
 from collections import OrderedDict
 
 from selenium.common.exceptions import TimeoutException, \
@@ -19,26 +19,18 @@ from selenium.webdriver.common.action_chains import ActionChains
 from tests.config.waits import Waits
 
 
-class BaseElement(object):
+class BaseElement(ABC):
     coordinate_x = 'x'
     coordinate_y = 'y'
 
-    # @abstractmethod
-    def __init__(self, search_condition_of, loc, name_of):
+    def __init__(self, loc, name_of, search_condition_of=By.XPATH):
         self.__search_condition = search_condition_of
         self.__locator = loc
         self.__name = name_of
 
     def __getitem__(self, key):
-        if self.__search_condition != By.XPATH:
-            raise TypeError(
-                "__getitem__ for BaseElement possible only when "
-                "__search_condition == By.XPATH")
-        else:
-            return type(self)(By.XPATH, self.__locator + "[" + str(key) + "]",
+        return type(self)(By.XPATH, self.__locator + "[" + str(key) + "]",
                               self.__name)
-            # return type(self)(By.XPATH, "(" + self.__locator + ")" +
-            # "[" + str(key) + "]", self.__name)
 
     def __call__(self, sublocator, new_name_of=None):
         if new_name_of is not None:
@@ -48,7 +40,6 @@ class BaseElement(object):
             return type(self)(By.XPATH, self.__locator + sublocator,
                               self.__name)
 
-    # @abstractmethod
     def get_element_type(self):
         pass
 
@@ -78,14 +69,15 @@ class BaseElement(object):
             for ele_number in range(1, element_size + 1):
                 element_locator = "({locator})[{number}]".format(
                     locator=locator, number=ele_number)
-                Logger.info("Поиск элемента с локатором " + element_locator)
+                Logger.info("Поиск элемента с локатором {loc}".format(
+                    loc=element_locator))
                 element = WebDriverWait(Browser.get_browser().get_driver(),
                                         Waits.EXPLICITLY_WAIT_SEC).until(
                     ec.visibility_of_element_located(
                         (condition, element_locator)))
                 result_elements.append(element)
         except TimeoutException:
-            error_msg = "элемент с локатором не был найден"
+            error_msg = "Элемент не был найден"
             Logger.error(error_msg)
             raise TimeoutException(error_msg)
         return result_elements
@@ -125,21 +117,21 @@ class BaseElement(object):
 
     def send_keys_without_click(self, key, hide_logs=False):
         if hide_logs:
-            Logger.info(
-                "send_keys: Changing text of element '" + self.get_name() +
-                " " + self.__class__.__name__ + "' to text => 'Text is hidden'")
+            Logger.info("Изменяется текст элемента {elem_name} {class_name} "
+                        "на => 'Текст скрыт'".format(elem_name=self.get_name(),
+                            class_name=self.__class__.__name__))
         else:
-            Logger.info(
-                "send_keys: Changing text of element '" + self.get_name() +
-                " " + self.__class__.__name__ + "' to text => '" + key + "'")
+            Logger.info("Изменяется текст элемента {elem_name} {class_name} "
+                        "на => '{key}'".format(elem_name=self.get_name(), 
+                            class_name=self.__class__.__name__, key=key))
         self.wait_for_is_visible()
         element = self.wait_for_clickable()
         element.send_keys(key)
 
     def click(self):
         Logger.info(
-            "click: Clicking the element '" + self.get_name() +
-            " " + self.__class__.__name__ + "'")
+            "Производится нажатие на элемент {elem_name} {class_name}".format(
+                elem_name=self.get_name(), class_name=self.__class__.__name__))
 
         def func():
             self.find_element().click()
@@ -196,14 +188,12 @@ class BaseElement(object):
         actions.perform()
 
     def get_text(self, logs=True):
-        Logger.info("get_text: Getting text of element '" +
-                    self.get_name() + "'")
+        Logger.info("Получение текста элемента {elem_name}".format(
+            elem_name=self.get_name()))
         self.wait_for_is_present()
         text = self.find_element().text
         if logs:
-            Logger.info("get_text: Text '" + text + "' is received")
-        else:
-            Logger.info("get_text: - Text is too long to display")
+            Logger.info("Получен текст {text}".format(text=text))
         return text
 
     def get_text_content(self):
@@ -212,16 +202,14 @@ class BaseElement(object):
             "return arguments[0].textContent;", self.find_element())
 
     def get_attribute(self, attr):
-        Logger.info(
-            "get_attribute: Getting attribute " + attr + " for element '" +
-            self.get_name() + "'")
+        Logger.info("Получение атрибута {attr} элемента {name}".format(
+            attr=attr, name=self.get_name()))
         self.wait_for_is_visible()
         return self.find_element().get_attribute(name=attr)
 
     def get_css_value(self, property_name):
-        Logger.info(
-            "get_attribute: Получение атрибута CSS" + property_name +
-            " для элемента '" + self.get_name() + "'")
+        Logger.info("Получение атрибута CSS {prop_name} для элемента {name}".\
+            format(prop_name=property_name, name=self.get_name()))
         self.wait_for_is_visible()
         return self.find_element().value_of_css_property(
             property_name=property_name)
@@ -231,15 +219,14 @@ class BaseElement(object):
 
     def scroll_by_script(self):
         self.wait_for_is_visible()
-        Logger.info("Скролл к элементу '" + self.get_name() + "'")
+        Logger.info("Скролл к элементу {name}".format(name=self.get_name()))
         Browser.get_browser().execute_script(scripts_js.SCROLL_INTO_VIEW,
                                              self.find_element())
 
     def double_click(self):
         self.wait_for_is_visible()
         Logger.info(
-            "double_click: Двойной щелчок по элементу '" + self.get_name() +
-            "'")
+            "Двойной щелчок по элементу {name}".format(name=self.get_name()))
         ActionChains(Browser.get_browser().get_driver()).double_click(
             self.find_element()).perform()
 
@@ -316,8 +303,9 @@ class BaseElement(object):
                 method=method_to_check)
         except TimeoutException:
             result_message = (
-                "элемент '" + self.get_name() + "' с локатором " +
-                self.get_locator() + message
+                "элемент {elem_name} с локатором {loc} {mes}".format(
+                elem_name=self.get_name(), loc=self.get_locator(),
+                mes = message)
                 if use_default_msg else message)
             Logger.warning(result_message)
             raise TimeoutException(result_message)
@@ -372,13 +360,13 @@ class BaseElement(object):
     def get_location_horizontal(self):
         return self.find_element().location[BaseElement.coordinate_x]
 
-    @ staticmethod
+    @staticmethod
     def get_list_of_elements_vertical_locations(condition, locator):
         other_elements = BaseElement.get_displayed_elements(condition, locator)
         return [element.location[BaseElement.coordinate_y] for element in
                 other_elements]
 
-    @ staticmethod
+    @staticmethod
     def get_dict_of_elements_vertical_locations_and_text(condition, locator):
         events_time_elements = BaseElement.get_displayed_elements(condition,
                                                                   locator)
@@ -388,7 +376,7 @@ class BaseElement(object):
                 element.location[BaseElement.coordinate_y]] = element.text
         return events_info
 
-    @ staticmethod
+    @staticmethod
     def get_dict_of_elements_attribute_and_vertical_location(condition,
                                                              locator,
                                                              attribute_name):

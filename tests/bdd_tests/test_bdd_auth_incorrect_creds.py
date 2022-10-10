@@ -31,5 +31,5 @@ def open_login_page(pre_conditions, login, password):
 @then("Должно появляться сообщение об ошибке")
 def success_login_page_opened():
     login_page = LoginPage()
-    assert login_page.check_login_failed(), "Login is successful"
-    Logger.info("Login is not successful")
+    assert login_page.check_login_failed(), "Аутентификация успешна"
+    Logger.info("Аутентификация не успешна")

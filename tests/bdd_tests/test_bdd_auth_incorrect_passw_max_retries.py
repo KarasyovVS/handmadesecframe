@@ -32,8 +32,8 @@ def open_login_page(pre_conditions):
     for _ in range(TestConfigs.MAX_AUTH_RETRIES):
         ScriptsClass.login_script(login="jsmith", password="randomValue342")
         login_page = LoginPage()
-        assert login_page.check_login_failed(), "Login is successful"
-        Logger.info("Login is not successful")
+        assert login_page.check_login_failed(), "Аутентификация успешна"
+        Logger.info("Аутентификация не успешна")
 
 
 @then("Появляется сообщение о блокировке УЗ")
@@ -41,5 +41,5 @@ def success_login_page_opened():
     login_page = LoginPage()
     success_login_page = SuccessLoginPage()
     assert login_page.check_account_blocked_message() or \
-        not success_login_page.is_opened, "Account is available"
-    Logger.info("Acoount is blocked")
+        not success_login_page.is_opened, "Аккаунт доступен"
+    Logger.info("Аккаунт заблокирован")

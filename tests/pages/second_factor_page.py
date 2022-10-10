@@ -1,12 +1,14 @@
 from selenium.webdriver.common.by import By
 
 from framework.pages.base_page import BasePage
+from framework.elements.button import Button
+from framework.elements.text_box import TextBox
 
 
 class SecondFactorPage(BasePage):
 
     SEARCH_CONDITION = By.XPATH
-
+    
     SOME_LOC = ""
     SECOND_FACTOR_TB_LOC = ""
     CONFIRM_BTN_LOC = ""

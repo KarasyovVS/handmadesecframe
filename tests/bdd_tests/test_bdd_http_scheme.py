@@ -27,7 +27,7 @@ def open_landing_page_with_http_scheme(pre_conditions):
       "использованием схемы https")
 def check_landing_page_is_not_opened():
     landing_page = LandingPage()
-    page_not_opened = landing_page.wait_for_page_closed()
+    page_not_opened = landing_page.is_closed()
     url_contains_https = URLGenerator.url_contains_https(
         Browser.get_browser().get_current_url())
     assert page_not_opened or url_contains_https, "Переход по URL со " \
