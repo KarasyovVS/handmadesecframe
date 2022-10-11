@@ -5,6 +5,7 @@ from pytest_bdd import scenario, given, then
 
 from framework.utils.logger import Logger
 from framework.utils.nuclei_funcs import NucleiFunctions
+from tests.config.nuclei_configs.fuzzing_templates import FuzzingTemplates
 
 
 @pytest.fixture(scope='function')
@@ -25,7 +26,8 @@ def test_no_vulnerables_found_by_nuclei_fuzzing():
 def get_results_from_nuclei_fuzzing(pre_conditions, context):
     url = pre_conditions["url"]
     Logger.info("Запуск nuclei по url: {}".format(url))
-    context["partial_result"] = NucleiFunctions.get_fuzzing_results(url)
+    context["partial_result"] = NucleiFunctions.get_fuzzing_results(
+        url=url, excluded_templates=FuzzingTemplates.EXCLUDED_TEMPLATES)
 
 
 @then("Уязвимости инструментом nuclei не обнаружены")

@@ -1,13 +1,14 @@
 import subprocess
 
 from framework.utils.logger import Logger
-from tests.config.nuclei_configs.fuzzing_templates import FuzzingTemplates
 
 
 class NucleiFunctions(object):
 
 
     NUCLEI_SCAN_CMD = "nuclei -u {url} {options}"
+    ALL_TEMPLATES_FUZZING_CMD = "-t fuzzing/ -itags fuzz"
+    EXCLUDE_TEMPLATES_CMD = "-et {templates}"
 
 
     @staticmethod
@@ -27,11 +28,8 @@ class NucleiFunctions(object):
     
 
     @classmethod
-    def get_fuzzing_results(cls, url: str, 
-                            excluded_templates=
-                                FuzzingTemplates.EXCLUDED_TEMPLATES) -> str:
-        fuzz_options = " ".join([FuzzingTemplates.ALL_TEMPLATES_CMD, 
-                                 FuzzingTemplates.EXCLUDE_TEMPLATES_CMD.format(
-                                        templates=excluded_templates
-                                    )])
+    def get_fuzzing_results(cls, url: str, excluded_templates: str) -> str:
+        fuzz_options = " ".join([cls.ALL_TEMPLATES_FUZZING_CMD, 
+                                 cls.EXCLUDE_TEMPLATES_CMD.format(
+                                    templates=excluded_templates)])
         return cls.execute_nuclei_scan(url, fuzz_options)
