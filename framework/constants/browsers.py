@@ -1,2 +1,3 @@
-BROWSER_CHROME = "chrome"
-BROWSER_FIREFOX = "firefox"
+class Browsers(object):
+
+    BROWSER_CHROME = "chrome"

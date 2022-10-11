@@ -1,3 +1,3 @@
-class Paths(object):
+class Endpoints(object):
 
     AUTH_PATH = "/login.jsp"

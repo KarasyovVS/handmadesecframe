@@ -1,4 +1,3 @@
-# coding=utf-8
 from framework.elements.base.base_element import BaseElement
 from selenium.webdriver.common.keys import Keys
 
@@ -28,21 +27,22 @@ class TextBox(BaseElement):
         self.wait_for_is_present()
         value = super(TextBox, self).get_attribute("value")
         Logger.info(
-            "Метод get_value в элементе " + self.get_name() + " "
-            + self.get_element_type() +
-            " получил значение: " + str(value))
+            "Метод get_value в элементе {elem_name} {elem_type} "
+            "получил значение: {val}".format(
+                elem_name=self.get_name(), elem_type=self.get_element_type(), 
+                val=str(value)))
         return value
 
     def clear_field(self):
         Logger.info(
-            "Удаление текста в элементе " + self.get_name() +
-            self.get_element_type() + "'" + self.get_name() + "'")
+            "Удаление текста в элементе {elem_name} {elem_type}".format(
+                elem_name=self.get_name(), elem_type=self.get_element_type()))
         self.send_keys(Keys.CONTROL + 'a')
         self.send_keys_without_click(Keys.DELETE)
 
     def selenium_clear(self):
         self.click()
         Logger.info(
-            "Очистка элемента " + self.get_name() + self.get_element_type() +
-            "'" + self.get_name() + "'")
+            "Очистка элемента {elem_name} {elem_type}".format(
+                elem_name=self.get_name(), elem_type=self.get_element_type()))
         self.find_element().clear()

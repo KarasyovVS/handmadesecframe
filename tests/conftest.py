@@ -1,3 +1,4 @@
+from email.policy import default
 import pytest
 
 from framework.browser.browser import Browser
@@ -16,19 +17,23 @@ def pytest_addoption(parser):
                      default="defaultPassword",
                      help="Password for authentication")
     parser.addoption("--url", action="store",
-                     default="defaultUrl",
+                     default="noUrl",
                      help="Password for authentication")
+    parser.addoption("--2fa", action="store",
+                     default=False,
+                     help="Two factor authentication in system")
 
 
 @pytest.fixture(scope="session")
-def create_browser(request):
+def pre_conditions(request):
 
-    browser = request.config.getoption('--browser')
+    browser = request.config.getoption("--browser")
     Browser.get_browser().set_up_driver(browser_key=browser)
     Browser.get_browser().maximize(browser_key=browser)
     Logger.info("==============MAIN TEST PART==============")
 
-    yield
+    yield {"url": request.config.getoption("--url"), 
+           "2fa": request.config.getoption("--2fa")}
 
     Logger.info("==============MAIN TEST PART==============")
     for browser_key in list(Browser.get_browser().get_driver_names()):
