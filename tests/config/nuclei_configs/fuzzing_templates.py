@@ -1,7 +1,5 @@
 class FuzzingTemplates(object):
 
-    ALL_TEMPLATES_CMD = "-t fuzzing/ -itags fuzz"
-    EXCLUDE_TEMPLATES_CMD = "-et {templates}"
     EXCLUDED_TEMPLATES = \
         "fuzzing/cache-poisoning-fuzz.yaml," \
         "fuzzing/header-command-injection.yaml," \
