@@ -19,3 +19,10 @@ class URLGenerator:
         url = url.split("://")
         url = url[0] + "://" + login + ":" + password + "@" + url[1]
         return url
+
+    @staticmethod
+    def prepare_url_for_nmap_scan(url):
+        Logger.info("Преобразование URL для запуска nmap")
+        url = url.split("://")
+        url = url[1]
+        return url
