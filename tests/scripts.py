@@ -8,6 +8,6 @@ class ScriptsClass:
     @classmethod
     def login_script(self, login, password):
         login_page = LoginPage()
-        assert login_page.is_opened(), "Login page is not opened"
-        Logger.info("Login page is opened")
+        assert login_page.is_opened(), "Страница входа не открыта"
+        Logger.info("Страница входа открыта")
         login_page.authorizate(login, password)

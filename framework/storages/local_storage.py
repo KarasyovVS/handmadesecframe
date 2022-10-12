@@ -1,10 +1,11 @@
 from framework.constants.js_scripts import JSScripts
+from framework.browser.browser import Browser
 
 
-class LocalStorage:
+class LocalStorage(object):
     
-    def __init__(self, driver) :
-        self.driver = driver
+    def __init__(self):
+        self.driver = Browser()
 
     def __len__(self):
         return self.driver.execute_script(JSScripts.GET_LOCAL_STORAGE_LEN)
