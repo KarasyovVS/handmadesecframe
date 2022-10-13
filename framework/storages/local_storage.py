@@ -16,17 +16,17 @@ class LocalStorage(object):
     def keys(self) :
         return self.driver.execute_script(JSScripts.GET_ALL_KEYS)
 
-    def get(self, key):
-        return self.driver.execute_script(JSScripts.GET_ITEM, key)
+    # def get(self, key):
+    #     return self.driver.execute_script(JSScripts.GET_ITEM, key)
 
-    def set(self, key, value):
-        self.driver.execute_script(JSScripts.SET_ITEM, key, value)
+    # def set(self, key, value):
+    #     self.driver.execute_script(JSScripts.SET_ITEM, [key, value])
 
-    def has(self, key):
-        return key in self.keys()
+    # def has(self, key):
+    #     return key in self.keys()
 
-    def remove(self, key):
-        self.driver.execute_script(JSScripts.REMOVE_ITEM, key)
+    # def remove(self, key):
+    #     self.driver.execute_script(JSScripts.REMOVE_ITEM, key)
 
     def clear(self):
         self.driver.execute_script(JSScripts.CLEAR_STORAGE)
