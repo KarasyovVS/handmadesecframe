@@ -1,5 +1,4 @@
 import allure
-import time
 
 from pytest_bdd import scenario, given, then
 

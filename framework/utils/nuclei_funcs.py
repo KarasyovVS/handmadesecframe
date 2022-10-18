@@ -20,7 +20,7 @@ class NucleiFunctions(object):
 
 
     @classmethod
-    def execute_nuclei_scan(cls, url: str, options: str) -> str:
+    def __execute_nuclei_scan(cls, url: str, options: str) -> str:
         nuclei_cmd = cls.NUCLEI_SCAN_CMD.format(url=url, options=options)
         result = (subprocess.Popen(nuclei_cmd, shell=True, 
                                      stderr=subprocess.PIPE)).communicate()
@@ -32,4 +32,4 @@ class NucleiFunctions(object):
         fuzz_options = " ".join([cls.ALL_TEMPLATES_FUZZING_CMD, 
                                  cls.EXCLUDE_TEMPLATES_CMD.format(
                                     templates=excluded_templates)])
-        return cls.execute_nuclei_scan(url, fuzz_options)
+        return cls.__execute_nuclei_scan(url, fuzz_options)

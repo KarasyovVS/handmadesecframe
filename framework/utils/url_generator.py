@@ -1,3 +1,5 @@
+import re
+
 from framework.utils.logger import Logger
 
 
@@ -23,6 +25,5 @@ class URLGenerator:
     @staticmethod
     def prepare_url_for_nmap_scan(url):
         Logger.info("Преобразование URL для запуска nmap")
-        url = url.split("://")
-        url = url[1]
+        url = url.split("://")[1].split(":")[0]
         return url
