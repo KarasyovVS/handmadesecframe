@@ -24,7 +24,7 @@ def pytest_addoption(parser):
                      help="Two factor authentication in system")
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def pre_conditions(request):
 
     browser = request.config.getoption("--browser")
@@ -36,5 +36,8 @@ def pre_conditions(request):
            "2fa": request.config.getoption("--2fa")}
 
     Logger.info("==============MAIN TEST PART==============")
+    Logger.info("")
+    Logger.info("=============TESTS SEPARATOR==============")
+    Logger.info("")
     for browser_key in list(Browser.get_browser().get_driver_names()):
         Browser.get_browser().quit(browser_key=browser_key)

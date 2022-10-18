@@ -6,7 +6,7 @@ from selenium.common.exceptions import TimeoutException, \
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
-from framework.scripts import scripts_js
+from framework.constants.js_scripts import JSScripts
 from framework.utils.logger import Logger
 from framework.browser.browser import Browser
 from selenium.webdriver.common.by import By
@@ -220,7 +220,7 @@ class BaseElement(ABC):
     def scroll_by_script(self):
         self.wait_for_is_visible()
         Logger.info("Скролл к элементу {name}".format(name=self.get_name()))
-        Browser.get_browser().execute_script(scripts_js.SCROLL_INTO_VIEW,
+        Browser.get_browser().execute_script(JSScripts.SCROLL_INTO_VIEW,
                                              self.find_element())
 
     def double_click(self):
