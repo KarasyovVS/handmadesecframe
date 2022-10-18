@@ -32,7 +32,7 @@ def get_results_from_nmap(pre_conditions, context):
 
 @then("Получено подтверждение о соответствии открытых портов только разрешенным")
 def check_result(context):
-    assert NmapFunctions.validate_scan_results(
+    assert NmapFunctions.validate_open_ports_scan_results(
         result=context["partial_result"],
         allowed_ports_list=Ports.ALLOWED_PORTS)[0], \
         "Открытые порты не соответствуют заявленным"
