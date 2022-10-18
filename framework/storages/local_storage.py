@@ -4,17 +4,18 @@ from framework.browser.browser import Browser
 
 class LocalStorage(object):
     
-    def __init__(self):
-        self.driver = Browser()
+    DRIVER = Browser()
 
     def __len__(self):
-        return self.driver.execute_script(JSScripts.GET_LOCAL_STORAGE_LEN)
+        return self.DRIVER.execute_script(JSScripts.GET_LS_LEN)
 
+    @classmethod
     def items(self) :
-        return self.driver.execute_script(JSScripts.GET_ALL_ITEMS)
+        return self.DRIVER.execute_script(JSScripts.GET_ALL_LS_ITEMS)
 
+    @classmethod
     def keys(self) :
-        return self.driver.execute_script(JSScripts.GET_ALL_KEYS)
+        return self.DRIVER.execute_script(JSScripts.GET_ALL_LS_KEYS)
 
     # def get(self, key):
     #     return self.driver.execute_script(JSScripts.GET_ITEM, key)
@@ -26,10 +27,11 @@ class LocalStorage(object):
     #     return key in self.keys()
 
     # def remove(self, key):
-    #     self.driver.execute_script(JSScripts.REMOVE_ITEM, key)
+    #     self.driver.execute_script(JSScripts.REMOVE_ITEM, key)S
 
+    @classmethod
     def clear(self):
-        self.driver.execute_script(JSScripts.CLEAR_STORAGE)
+        self.DRIVER.execute_script(JSScripts.CLEAR_STORAGE)
 
     def __getitem__(self, key) :
         value = self.get(key)

@@ -10,7 +10,6 @@ from tests.pages.success_login_page import SuccessLoginPage
 from tests.scripts import ScriptsClass
 from tests.config.creds_file import Creds
 from tests.config.endpoints import Endpoints
-from tests.pages.login_page import LoginPage
 
 
 @pytest.fixture(scope='function')
@@ -44,10 +43,9 @@ def log_in_and_fill_in_forms(pre_conditions, creds, context):
 @then("Проверить содержимое локального хранилища на отсутствие чувствительной"
       " информации")
 def check_local_storage(context):
-    local_storage = LocalStorage()
-    for elem in local_storage.items():
+    for elem in LocalStorage().items():
         for sens_info in context:
             assert not sens_info in elem, "Чувствительная информация " \
                 "сохранена в локальном хранилище: {sens_info}".format(
-                    sens_info=str(local_storage.items()))
+                    sens_info=str(LocalStorage().items()))
     Logger.info("Локальное хранилище не содержит чувствительных данных")

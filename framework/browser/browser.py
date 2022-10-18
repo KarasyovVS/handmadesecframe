@@ -107,9 +107,11 @@ class Browser(metaclass=Singleton):
         return self.get_driver().add_cookie(cookie_dict)
 
     def get_current_url(self):
+        Logger.info("Получение текущего url")
         return self.get_driver().current_url
 
     def back_page(self):
+        Logger.info("Возврат на предыдущую страницу")
         self.get_driver().back()
 
     def switch_to_window(self, window_handle=None):

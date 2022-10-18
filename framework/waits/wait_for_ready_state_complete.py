@@ -2,7 +2,7 @@
 from selenium.common.exceptions import StaleElementReferenceException
 
 from framework.constants import page_states
-from framework.scripts import scripts_js
+from framework.constants.js_scripts import JSScripts
 
 
 class WaitForReadyStateComplete(object):
@@ -12,6 +12,6 @@ class WaitForReadyStateComplete(object):
     def __call__(self, driver):
         try:
             return self.browser.execute_script(
-                scripts_js.GET_PAGE_READY_STATE) == page_states.COMPLETE
+                JSScripts.GET_PAGE_READY_STATE) == page_states.COMPLETE
         except StaleElementReferenceException:
             return False
