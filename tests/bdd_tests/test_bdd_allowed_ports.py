@@ -1,5 +1,5 @@
-import pytest
 import allure
+import pytest
 
 from pytest_bdd import scenario, given, then
 
@@ -9,9 +9,10 @@ from framework.utils.url_generator import URLGenerator
 from tests.config.nmap_configs.ports import Ports
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def context():
     return {}
+
 
 @allure.feature("5 Дополнительные точки входа")
 @allure.story("5-6 Сканирование открытых портов")
@@ -34,6 +35,6 @@ def get_results_from_nmap(pre_conditions, context):
 def check_result(context):
     assert NmapFunctions.validate_open_ports_scan_results(
         result=context["partial_result"],
-        allowed_ports_list=Ports.ALLOWED_PORTS)[0], \
+        allowed_ports_list=Ports.ALLOWED_PORTS), \
         "Открытые порты не соответствуют заявленным"
     Logger.info("Открытые порты соответствуют заявленным")
